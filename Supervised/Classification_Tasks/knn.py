@@ -1,16 +1,12 @@
-
 import pandas as pd
-import matplotlib.pyplot as plt
-
 from sklearn.model_selection import train_test_split
-from sklearn.preprocessing import StandardScaler, OneHotEncoder
-from sklearn.linear_model import knn
-from sklearn.metrics import classification_report, roc_auc_score, confusion_matrix, ConfusionMatrixDisplay, RocCurveDisplay
+from sklearn.preprocessing import StandardScaler
+from sklearn.metrics import accuracy_score, classification_report, confusion_matrix
 
+#load preprocessed DataSet
+df = pd.read_csv("C:\DATA_SCIENCE\data_set\TelCom_churn_preprocessed.csv")
 
-df = pd.read_csv('./data_set/TelCom_churn_preprocessed.csv')
-print(df.columns)
-
+# select Feature Columns  
 X = df[['SeniorCitizen', 'tenure', 'MonthlyCharges','TotalCharges',
        'gender_Male', 'Partner_Yes', 'Dependents_Yes',
        'PhoneService_Yes', 'MultipleLines_No phone service',
@@ -24,41 +20,36 @@ X = df[['SeniorCitizen', 'tenure', 'MonthlyCharges','TotalCharges',
        'Contract_One year', 'Contract_Two year', 'PaperlessBilling_Yes',
        'PaymentMethod_Credit card (automatic)',
        'PaymentMethod_Electronic check', 'PaymentMethod_Mailed check']]
-#X = df.drop('Churn_num', axis=1)
+
+#target Feature
 y = df['Churn_Yes']
 
+
+# 4️ Train-Test Split
 X_train, X_test, y_train, y_test = train_test_split(
     X, y, test_size=0.2, random_state=42, stratify=y
 )
 
+# 5️ Feature Scaling (for distance-based algorithms like KNN)
 scaler = StandardScaler()
 X_train_scaled = scaler.fit_transform(X_train)
 X_test_scaled = scaler.transform(X_test)
 
 
 
-log_reg = LogisticRegression(max_iter=1000, class_weight='balanced', random_state=42)
-log_reg.fit(X_train_scaled, y_train)
+# 6️ Import Algorithm
+from sklearn.neighbors import KNeighborsClassifier
+model = KNeighborsClassifier(n_neighbors=5, algorithm='auto', metric='euclidean')
 
 
 
-y_pred = log_reg.predict(X_test_scaled)
-y_prob = log_reg.predict_proba(X_test_scaled)[:, 1]
+#  Train Model
+model.fit(X_train_scaled, y_train)
 
+#  Predict
+y_pred = model.predict(X_test_scaled)
 
-
-print("----x----x----x----Classification Report----x----x----x----x")
-print(classification_report(y_test, y_pred))
-
-
-cm = confusion_matrix(y_test, y_pred)
-print("Confusion Matrix:\n", cm)
-
-disp = ConfusionMatrixDisplay(confusion_matrix=cm, display_labels=log_reg.classes_)
-disp.plot(cmap='Blues')
-plt.title("Confusion Matrix - Logistic Regression")
-plt.show()
-
-
-
-
+# Evaluate
+print("Accuracy:", accuracy_score(y_test, y_pred))
+print("\nConfusion Matrix:\n", confusion_matrix(y_test, y_pred))
+print("\nClassification Report:\n", classification_report(y_test, y_pred))
