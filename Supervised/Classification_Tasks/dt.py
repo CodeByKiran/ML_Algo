@@ -4,7 +4,7 @@ from sklearn.preprocessing import StandardScaler
 from sklearn.metrics import accuracy_score, classification_report, confusion_matrix
 
 #load preprocessed DataSet
-df = pd.read_csv("C:\DATA_SCIENCE\data_set\TelCom_churn_preprocessed.csv")
+df = pd.read_csv(r"C:\DATA_SCIENCE\data_set\TelCom_churn_preprocessed.csv")
 
 # select Feature Columns  
 X = df[['SeniorCitizen', 'tenure', 'MonthlyCharges','TotalCharges',
@@ -39,15 +39,15 @@ X_test_scaled = scaler.transform(X_test)'''
 
 # 6️ Import Algorithm
 from sklearn.tree import DecisionTreeClassifier
-model = DecisionTreeClassifier()
+model = DecisionTreeClassifier(criterion ='gini',max_depth =6 ,min_samples_split =2 , max_features = None ,max_leaf_nodes = None,random_state = 42)
 
 
 
 #  Train Model
-model.fit(X_train_scaled, y_train)
+model.fit(X_train, y_train)
 
 #  Predict
-y_pred = model.predict(X_test_scaled)
+y_pred = model.predict(X_test)
 
 # Evaluate
 print("Accuracy:", accuracy_score(y_test, y_pred))
