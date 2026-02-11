@@ -1,4 +1,4 @@
-'''from sklearn.cluster import DBSCAN
+from sklearn.cluster import DBSCAN
 from sklearn.metrics import silhouette_score
 from  sklearn.preprocessing import StandardScaler
 import seaborn as sns
@@ -38,6 +38,8 @@ plt.title("DBSCAN Clusters (2 Features)")
 plt.xlabel(X.columns[0])
 plt.ylabel(X.columns[1])
 plt.show()
+
+
 '''
 
 from sklearn.cluster import DBSCAN
@@ -86,3 +88,4 @@ def run_dbscan(data, eps=0.5, min_samples=5):
         "cluster_distribution": cluster_distribution,
         "silhouette_score": silhouette
     }
+'''

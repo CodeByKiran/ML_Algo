@@ -4,7 +4,7 @@ from sklearn.preprocessing import StandardScaler
 from sklearn.metrics import accuracy_score, classification_report, confusion_matrix
 
 #load preprocessed DataSet
-df = pd.read_csv("C:\DATA_SCIENCE\data_set\TelCom_churn_preprocessed.csv")
+df = pd.read_csv(r"C:\DATA_SCIENCE\data_set\TelCom_churn_preprocessed.csv")
 
 # select Feature Columns  
 X = df[['SeniorCitizen', 'tenure', 'MonthlyCharges','TotalCharges',

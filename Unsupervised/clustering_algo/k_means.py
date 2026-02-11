@@ -1,5 +1,5 @@
 
-'''import pandas as pd
+import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
 import seaborn as sns
@@ -10,7 +10,7 @@ from sklearn.cluster import KMeans
 df = pd.read_csv(r"C:\DATA_SCIENCE\data_set\TelCom_churn_preprocessed.csv")
 
 
-target_cols = ['Churn_Yes', 'Churn_Num']
+target_cols = ['Churn_Yes', 'Churn_num']
 X = df.drop(columns=target_cols)
 
 scaler = StandardScaler()
@@ -55,8 +55,10 @@ plt.show()
 
 
 sns.pairplot(df, vars=X.columns[:4], hue='kmeans_cluster', palette='Set1')
-plt.show() '''
+plt.show()
 
+
+'''
 from sklearn.cluster import KMeans
 from sklearn.preprocessing import StandardScaler
 import numpy as np
@@ -79,4 +81,4 @@ def run_kmeans(data, k):
     return {
         "labels": labels.tolist(),
         "centroids": model.cluster_centers_.tolist()
-    }
+    }'''

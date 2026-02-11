@@ -8,7 +8,7 @@ from sklearn.linear_model import LogisticRegression
 from sklearn.metrics import classification_report, roc_auc_score, confusion_matrix, ConfusionMatrixDisplay, RocCurveDisplay
 
 
-df = pd.read_csv('../data_set/TelCom_churn_preprocessed.csv')
+df = pd.read_csv(r"C:\DATA_SCIENCE\data_set\TelCom_churn_preprocessed.csv")
 print(df.columns)
 
 X = df[['SeniorCitizen', 'tenure', 'MonthlyCharges','TotalCharges',
