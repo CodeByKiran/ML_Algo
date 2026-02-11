@@ -1,8 +1,5 @@
-# =============================
-# K-Means Clustering on Telecom Churn Dataset
-# =============================
 
-import pandas as pd
+'''import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
 import seaborn as sns
@@ -58,4 +55,28 @@ plt.show()
 
 
 sns.pairplot(df, vars=X.columns[:4], hue='kmeans_cluster', palette='Set1')
-plt.show()
+plt.show() '''
+
+from sklearn.cluster import KMeans
+from sklearn.preprocessing import StandardScaler
+import numpy as np
+
+def run_kmeans(data, k):
+    """
+    data: List[List[float]]
+    k: int
+    """
+
+    X = np.array(data)
+
+    # Optional scaling (recommended)
+    scaler = StandardScaler()
+    X_scaled = scaler.fit_transform(X)
+
+    model = KMeans(n_clusters=k, random_state=42)
+    labels = model.fit_predict(X_scaled)
+
+    return {
+        "labels": labels.tolist(),
+        "centroids": model.cluster_centers_.tolist()
+    }
